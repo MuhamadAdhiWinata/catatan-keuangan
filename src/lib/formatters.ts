@@ -1,14 +1,14 @@
 export function formatCurrency(amount: number): string {
-  return amount.toLocaleString('en-US', {
+  return amount.toLocaleString('id-ID', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'IDR',
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 0,
   });
 }
 
 export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('id-ID', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -16,7 +16,7 @@ export function formatDate(date: Date): string {
 }
 
 export function formatDateShort(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('id-ID', {
     month: 'short',
     day: 'numeric',
   }).format(date);

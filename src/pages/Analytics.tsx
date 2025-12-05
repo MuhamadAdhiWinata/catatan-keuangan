@@ -20,12 +20,12 @@ export default function Analytics() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <h1 className="page-title">Analytics</h1>
+      <h1 className="page-title">Analitik</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Net Cashflow Trend */}
         <div className="finance-card">
-          <h3 className="section-title mb-4">Net Cashflow Trend</h3>
+          <h3 className="section-title mb-4">Tren Arus Kas Bersih</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={monthly}>
@@ -33,7 +33,7 @@ export default function Analytics() {
                 <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
-                <Line type="monotone" dataKey="net" stroke="hsl(221, 83%, 53%)" strokeWidth={2} dot={{ fill: 'hsl(221, 83%, 53%)' }} />
+                <Line type="monotone" dataKey="net" stroke="hsl(221, 83%, 53%)" strokeWidth={2} dot={{ fill: 'hsl(221, 83%, 53%)' }} name="Arus Kas Bersih" />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -41,7 +41,7 @@ export default function Analytics() {
 
         {/* Top 5 Spending Categories */}
         <div className="finance-card">
-          <h3 className="section-title mb-4">Top Spending Categories</h3>
+          <h3 className="section-title mb-4">Kategori Pengeluaran Tertinggi</h3>
           {insights?.topCategories.length ? (
             <div className="space-y-3">
               {insights.topCategories.map((cat, i) => (
@@ -51,12 +51,12 @@ export default function Analytics() {
                 </div>
               ))}
             </div>
-          ) : <p className="text-muted-foreground">No data available</p>}
+          ) : <p className="text-muted-foreground">Belum ada data</p>}
         </div>
 
         {/* Day of Week Pattern */}
         <div className="finance-card">
-          <h3 className="section-title mb-4">Spending by Day of Week</h3>
+          <h3 className="section-title mb-4">Pengeluaran per Hari</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={insights?.dayOfWeekPattern || []}>
@@ -64,7 +64,7 @@ export default function Analytics() {
                 <XAxis dataKey="day" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
-                <Bar dataKey="amount" fill="hsl(0, 84%, 60%)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="amount" fill="hsl(0, 84%, 60%)" radius={[4, 4, 0, 0]} name="Pengeluaran" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -72,19 +72,19 @@ export default function Analytics() {
 
         {/* Summary Cards */}
         <div className="finance-card">
-          <h3 className="section-title mb-4">Quick Insights</h3>
+          <h3 className="section-title mb-4">Wawasan Cepat</h3>
           <div className="space-y-4">
             {insights?.monthOverMonth && (
               <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">Month-over-month change</p>
+                <p className="text-sm text-muted-foreground">Perubahan bulan ke bulan</p>
                 <p className={`text-lg font-semibold ${insights.monthOverMonth.direction === 'up' ? 'amount-expense' : insights.monthOverMonth.direction === 'down' ? 'amount-income' : ''}`}>
-                  {insights.monthOverMonth.direction === 'up' ? '↑' : insights.monthOverMonth.direction === 'down' ? '↓' : '→'} {insights.monthOverMonth.change.toFixed(1)}% {insights.monthOverMonth.direction}
+                  {insights.monthOverMonth.direction === 'up' ? '↑ Naik' : insights.monthOverMonth.direction === 'down' ? '↓ Turun' : '→ Stabil'} {insights.monthOverMonth.change.toFixed(1)}%
                 </p>
               </div>
             )}
             {insights?.largestTransaction && (
               <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">Largest single expense</p>
+                <p className="text-sm text-muted-foreground">Pengeluaran terbesar</p>
                 <p className="text-lg font-semibold amount-expense">{formatCurrency(insights.largestTransaction.amount)}</p>
                 <p className="text-sm text-muted-foreground">{insights.largestTransaction.category} • {formatDate(insights.largestTransaction.date)}</p>
               </div>

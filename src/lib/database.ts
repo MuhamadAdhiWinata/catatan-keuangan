@@ -66,34 +66,34 @@ export async function seedCategories(userId: number) {
   if (existingCategories > 0) return;
 
   const defaultCategories: Omit<Category, 'id'>[] = [
-    // Income categories
-    { userId, name: 'Salary', type: 'income', icon: '💰' },
+    // Kategori Pemasukan
+    { userId, name: 'Gaji', type: 'income', icon: '💰' },
     { userId, name: 'Bonus', type: 'income', icon: '🎁' },
-    { userId, name: 'Refund', type: 'income', icon: '↩️' },
-    { userId, name: 'Investment Returns', type: 'income', icon: '📈' },
+    { userId, name: 'Pengembalian Dana', type: 'income', icon: '↩️' },
+    { userId, name: 'Hasil Investasi', type: 'income', icon: '📈' },
     { userId, name: 'Freelance', type: 'income', icon: '💼' },
-    { userId, name: 'Other Income', type: 'income', icon: '➕' },
+    { userId, name: 'Pemasukan Lain', type: 'income', icon: '➕' },
     
-    // Expense categories
-    { userId, name: 'Food & Dining', type: 'expense', icon: '🍔' },
-    { userId, name: 'Transport', type: 'expense', icon: '🚗' },
-    { userId, name: 'Utilities', type: 'expense', icon: '💡' },
-    { userId, name: 'Shopping', type: 'expense', icon: '🛍️' },
-    { userId, name: 'Entertainment', type: 'expense', icon: '🎬' },
-    { userId, name: 'Healthcare', type: 'expense', icon: '🏥' },
-    { userId, name: 'Education', type: 'expense', icon: '📚' },
-    { userId, name: 'Rent', type: 'expense', icon: '🏠' },
-    { userId, name: 'Insurance', type: 'expense', icon: '🛡️' },
-    { userId, name: 'Subscriptions', type: 'expense', icon: '📱' },
-    { userId, name: 'Other Expense', type: 'expense', icon: '➖' },
+    // Kategori Pengeluaran
+    { userId, name: 'Makanan & Minuman', type: 'expense', icon: '🍔' },
+    { userId, name: 'Transportasi', type: 'expense', icon: '🚗' },
+    { userId, name: 'Listrik & Air', type: 'expense', icon: '💡' },
+    { userId, name: 'Belanja', type: 'expense', icon: '🛍️' },
+    { userId, name: 'Hiburan', type: 'expense', icon: '🎬' },
+    { userId, name: 'Kesehatan', type: 'expense', icon: '🏥' },
+    { userId, name: 'Pendidikan', type: 'expense', icon: '📚' },
+    { userId, name: 'Sewa/Kontrakan', type: 'expense', icon: '🏠' },
+    { userId, name: 'Asuransi', type: 'expense', icon: '🛡️' },
+    { userId, name: 'Langganan', type: 'expense', icon: '📱' },
+    { userId, name: 'Pengeluaran Lain', type: 'expense', icon: '➖' },
     
-    // Transfer categories
-    { userId, name: 'Bank to Cash', type: 'transfer', icon: '🏦' },
-    { userId, name: 'Cash to Bank', type: 'transfer', icon: '💵' },
-    { userId, name: 'To E-Wallet', type: 'transfer', icon: '📲' },
-    { userId, name: 'From E-Wallet', type: 'transfer', icon: '📱' },
-    { userId, name: 'Investment Transfer', type: 'transfer', icon: '📊' },
-    { userId, name: 'Internal Transfer', type: 'transfer', icon: '🔄' },
+    // Kategori Transfer
+    { userId, name: 'Bank ke Tunai', type: 'transfer', icon: '🏦' },
+    { userId, name: 'Tunai ke Bank', type: 'transfer', icon: '💵' },
+    { userId, name: 'Ke E-Wallet', type: 'transfer', icon: '📲' },
+    { userId, name: 'Dari E-Wallet', type: 'transfer', icon: '📱' },
+    { userId, name: 'Transfer Investasi', type: 'transfer', icon: '📊' },
+    { userId, name: 'Transfer Internal', type: 'transfer', icon: '🔄' },
   ];
 
   await db.categories.bulkAdd(defaultCategories);

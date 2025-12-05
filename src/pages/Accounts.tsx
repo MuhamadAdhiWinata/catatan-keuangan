@@ -7,7 +7,7 @@ import { toast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const accountTypeIcons = { bank: Building, cash: Wallet, 'e-wallet': CreditCard, investment: TrendingUp };
-const accountTypeLabels = { bank: 'Bank Account', cash: 'Cash', 'e-wallet': 'E-Wallet', investment: 'Investment' };
+const accountTypeLabels = { bank: 'Rekening Bank', cash: 'Tunai', 'e-wallet': 'E-Wallet', investment: 'Investasi' };
 
 export default function Accounts() {
   const { user } = useAuth();
@@ -31,10 +31,10 @@ export default function Accounts() {
     try {
       if (editingAccount) {
         await db.accounts.update(editingAccount.id!, { name: form.name, type: form.type, balance: parseFloat(form.balance) || 0 });
-        toast({ title: 'Account updated' });
+        toast({ title: 'Akun diperbarui' });
       } else {
         await db.accounts.add({ userId: user.id, name: form.name, type: form.type, balance: parseFloat(form.balance) || 0, createdAt: new Date() });
-        toast({ title: 'Account created' });
+        toast({ title: 'Akun dibuat' });
       }
       setIsOpen(false);
       setEditingAccount(null);
@@ -44,9 +44,9 @@ export default function Accounts() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Delete this account?')) return;
+    if (!confirm('Hapus akun ini?')) return;
     await db.accounts.delete(id);
-    toast({ title: 'Account deleted' });
+    toast({ title: 'Akun dihapus' });
     loadAccounts();
   };
 
@@ -57,18 +57,18 @@ export default function Accounts() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="page-title">Accounts</h1>
-          <p className="text-muted-foreground">Total Balance: <span className="font-semibold text-foreground">{formatCurrency(totalBalance)}</span></p>
+          <h1 className="page-title">Akun</h1>
+          <p className="text-muted-foreground">Total Saldo: <span className="font-semibold text-foreground">{formatCurrency(totalBalance)}</span></p>
         </div>
         <button onClick={() => { setEditingAccount(null); setForm({ name: '', type: 'bank', balance: '' }); setIsOpen(true); }} className="btn-primary flex items-center gap-2">
-          <Plus size={18} /> Add Account
+          <Plus size={18} /> Tambah Akun
         </button>
       </div>
 
       <div className="flex gap-2 flex-wrap">
         {['all', 'bank', 'cash', 'e-wallet', 'investment'].map(t => (
           <button key={t} onClick={() => setFilter(t)} className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filter === t ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}`}>
-            {t === 'all' ? 'All' : accountTypeLabels[t as Account['type']]}
+            {t === 'all' ? 'Semua' : accountTypeLabels[t as Account['type']]}
           </button>
         ))}
       </div>
@@ -92,21 +92,21 @@ export default function Accounts() {
             </div>
           );
         })}
-        {filteredAccounts.length === 0 && <div className="col-span-full text-center py-12 text-muted-foreground">No accounts found</div>}
+        {filteredAccounts.length === 0 && <div className="col-span-full text-center py-12 text-muted-foreground">Tidak ada akun ditemukan</div>}
       </div>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
-          <DialogHeader><DialogTitle>{editingAccount ? 'Edit Account' : 'Add Account'}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{editingAccount ? 'Edit Akun' : 'Tambah Akun'}</DialogTitle></DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div><label className="block text-sm font-medium mb-2">Name</label><input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="input-field" required /></div>
-            <div><label className="block text-sm font-medium mb-2">Type</label>
+            <div><label className="block text-sm font-medium mb-2">Nama</label><input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="input-field" required /></div>
+            <div><label className="block text-sm font-medium mb-2">Tipe</label>
               <select value={form.type} onChange={e => setForm({ ...form, type: e.target.value as Account['type'] })} className="input-field">
-                <option value="bank">Bank Account</option><option value="cash">Cash</option><option value="e-wallet">E-Wallet</option><option value="investment">Investment</option>
+                <option value="bank">Rekening Bank</option><option value="cash">Tunai</option><option value="e-wallet">E-Wallet</option><option value="investment">Investasi</option>
               </select>
             </div>
-            <div><label className="block text-sm font-medium mb-2">Initial Balance</label><input type="number" step="0.01" value={form.balance} onChange={e => setForm({ ...form, balance: e.target.value })} className="input-field" /></div>
-            <button type="submit" className="btn-primary w-full">{editingAccount ? 'Update' : 'Create'} Account</button>
+            <div><label className="block text-sm font-medium mb-2">Saldo Awal</label><input type="number" step="1" value={form.balance} onChange={e => setForm({ ...form, balance: e.target.value })} className="input-field" /></div>
+            <button type="submit" className="btn-primary w-full">{editingAccount ? 'Perbarui' : 'Buat'} Akun</button>
           </form>
         </DialogContent>
       </Dialog>

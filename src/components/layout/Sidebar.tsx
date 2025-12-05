@@ -16,13 +16,13 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/accounts', icon: Wallet, label: 'Accounts' },
-  { to: '/transactions', icon: ArrowLeftRight, label: 'Transactions' },
-  { to: '/categories', icon: Tags, label: 'Categories' },
-  { to: '/analytics', icon: BarChart3, label: 'Analytics' },
-  { to: '/history', icon: History, label: 'History' },
-  { to: '/export', icon: Download, label: 'Export' },
+  { to: '/dashboard', icon: LayoutDashboard, label: 'Beranda' },
+  { to: '/accounts', icon: Wallet, label: 'Akun' },
+  { to: '/transactions', icon: ArrowLeftRight, label: 'Transaksi' },
+  { to: '/categories', icon: Tags, label: 'Kategori' },
+  { to: '/analytics', icon: BarChart3, label: 'Analitik' },
+  { to: '/history', icon: History, label: 'Riwayat' },
+  { to: '/export', icon: Download, label: 'Ekspor' },
 ];
 
 export function Sidebar() {
@@ -60,7 +60,7 @@ export function Sidebar() {
             </div>
             <div>
               <h1 className="font-bold text-sidebar-foreground">FinanceFlow</h1>
-              <p className="text-xs text-sidebar-foreground/60">Personal Finance</p>
+              <p className="text-xs text-sidebar-foreground/60">Keuangan Pribadi</p>
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@ export function Sidebar() {
             className="sidebar-nav-item w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
           >
             <LogOut className="w-5 h-5" />
-            <span>Logout</span>
+            <span>Keluar</span>
           </button>
         </div>
       </aside>
