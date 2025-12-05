@@ -28,8 +28,8 @@ export default function Auth() {
 
     if (result.success) {
       toast({
-        title: isLogin ? 'Welcome back!' : 'Account created',
-        description: isLogin ? 'You have successfully logged in.' : 'Your account has been created successfully.',
+        title: isLogin ? 'Selamat datang kembali!' : 'Akun berhasil dibuat',
+        description: isLogin ? 'Anda berhasil masuk.' : 'Akun Anda telah berhasil dibuat.',
       });
     } else {
       toast({
@@ -52,16 +52,16 @@ export default function Auth() {
             FinanceFlow
           </h1>
           <p className="text-lg text-sidebar-foreground/70 mb-8">
-            Take control of your finances with powerful tracking, analytics, and insights.
+            Kelola keuangan Anda dengan pelacakan, analitik, dan wawasan yang powerful.
           </p>
           <div className="grid grid-cols-2 gap-4 text-left">
             {[
-              'Multi-account ledger',
-              'Cashflow analytics',
-              'Smart forecasting',
-              'Expense tracking',
-              'Transfer management',
-              'Financial insights',
+              'Multi-akun',
+              'Analitik arus kas',
+              'Prediksi cerdas',
+              'Pelacakan pengeluaran',
+              'Manajemen transfer',
+              'Wawasan keuangan',
             ].map((feature) => (
               <div key={feature} className="flex items-center gap-2 text-sidebar-foreground/60">
                 <div className="w-1.5 h-1.5 bg-sidebar-primary rounded-full" />
@@ -86,26 +86,26 @@ export default function Auth() {
           <div className="finance-card">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-foreground">
-                {isLogin ? 'Welcome back' : 'Create account'}
+                {isLogin ? 'Selamat datang kembali' : 'Buat akun'}
               </h2>
               <p className="text-muted-foreground mt-2">
                 {isLogin 
-                  ? 'Enter your credentials to access your account' 
-                  : 'Get started with your financial journey'}
+                  ? 'Masukkan kredensial untuk mengakses akun Anda' 
+                  : 'Mulai perjalanan keuangan Anda'}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Username
+                  Nama Pengguna
                 </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="input-field"
-                  placeholder="Enter your username"
+                  placeholder="Masukkan nama pengguna"
                   required
                   disabled={isLoading}
                 />
@@ -113,7 +113,7 @@ export default function Auth() {
 
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Password
+                  Kata Sandi
                 </label>
                 <div className="relative">
                   <input
@@ -121,7 +121,7 @@ export default function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="input-field pr-10"
-                    placeholder="Enter your password"
+                    placeholder="Masukkan kata sandi"
                     required
                     disabled={isLoading}
                   />
@@ -141,18 +141,18 @@ export default function Auth() {
                 className="btn-primary w-full flex items-center justify-center gap-2"
               >
                 {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-                {isLogin ? 'Sign In' : 'Create Account'}
+                {isLogin ? 'Masuk' : 'Buat Akun'}
               </button>
             </form>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
-                {isLogin ? "Don't have an account?" : 'Already have an account?'}
+                {isLogin ? "Belum punya akun?" : 'Sudah punya akun?'}
                 <button
                   onClick={() => setIsLogin(!isLogin)}
                   className="ml-1 text-primary hover:underline font-medium"
                 >
-                  {isLogin ? 'Sign up' : 'Sign in'}
+                  {isLogin ? 'Daftar' : 'Masuk'}
                 </button>
               </p>
             </div>

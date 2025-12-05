@@ -251,7 +251,7 @@ export async function getSpendingInsights(userId: number): Promise<SpendingInsig
     .slice(0, 5);
 
   // Day of week pattern
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
   const dayTotals = new Array(7).fill(0);
   transactions.forEach(t => {
     const day = getDay(t.date);
@@ -381,7 +381,7 @@ export async function exportToCSV(userId: number): Promise<string> {
   const accountMap = new Map(accounts.map(a => [a.id!, a.name]));
   const categoryMap = new Map(categories.map(c => [c.id!, c.name]));
 
-  const headers = ['Date', 'Type', 'Category', 'Account', 'Amount', 'Note'];
+  const headers = ['Tanggal', 'Tipe', 'Kategori', 'Akun', 'Jumlah', 'Catatan'];
   const rows = transactions.map(t => [
     format(t.date, 'yyyy-MM-dd'),
     t.type,

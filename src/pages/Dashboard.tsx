@@ -58,16 +58,16 @@ export default function Dashboard() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="page-title">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back, {user?.username}</p>
+        <h1 className="page-title">Beranda</h1>
+        <p className="text-muted-foreground">Selamat datang, {user?.username}</p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Total Balance" value={totalBalance} icon={Wallet} variant="primary" />
-        <StatCard title="Income (This Month)" value={thisMonthIncome} icon={TrendingUp} variant="income" />
-        <StatCard title="Expenses (This Month)" value={thisMonthExpense} icon={TrendingDown} variant="expense" />
-        <StatCard title="Net Cashflow" value={netCashflow} icon={ArrowRightLeft} variant={netCashflow >= 0 ? 'income' : 'expense'} />
+        <StatCard title="Total Saldo" value={totalBalance} icon={Wallet} variant="primary" />
+        <StatCard title="Pemasukan (Bulan Ini)" value={thisMonthIncome} icon={TrendingUp} variant="income" />
+        <StatCard title="Pengeluaran (Bulan Ini)" value={thisMonthExpense} icon={TrendingDown} variant="expense" />
+        <StatCard title="Arus Kas Bersih" value={netCashflow} icon={ArrowRightLeft} variant={netCashflow >= 0 ? 'income' : 'expense'} />
       </div>
 
       {/* Anomaly Alert */}
@@ -76,10 +76,10 @@ export default function Dashboard() {
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-expense mt-0.5" />
             <div>
-              <h3 className="font-semibold text-expense">Unusual Spending Detected</h3>
+              <h3 className="font-semibold text-expense">Pengeluaran Tidak Biasa Terdeteksi</h3>
               <p className="text-sm text-muted-foreground mt-1">
-                {anomalies.length} transaction(s) significantly exceed your average spending.
-                Highest: {formatCurrency(anomalies[0].amount)} in {anomalies[0].categoryName} ({anomalies[0].ratio.toFixed(1)}x average)
+                {anomalies.length} transaksi melebihi rata-rata pengeluaran Anda.
+                Tertinggi: {formatCurrency(anomalies[0].amount)} di {anomalies[0].categoryName} ({anomalies[0].ratio.toFixed(1)}x rata-rata)
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Cashflow Chart */}
         <div className="finance-card">
-          <h3 className="section-title mb-4">Monthly Cashflow</h3>
+          <h3 className="section-title mb-4">Arus Kas Bulanan</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyData.slice(-6)}>
@@ -98,8 +98,8 @@ export default function Dashboard() {
                 <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <Tooltip contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
-                <Bar dataKey="income" fill="hsl(142, 76%, 36%)" radius={[4, 4, 0, 0]} name="Income" />
-                <Bar dataKey="expense" fill="hsl(0, 84%, 60%)" radius={[4, 4, 0, 0]} name="Expense" />
+                <Bar dataKey="income" fill="hsl(142, 76%, 36%)" radius={[4, 4, 0, 0]} name="Pemasukan" />
+                <Bar dataKey="expense" fill="hsl(0, 84%, 60%)" radius={[4, 4, 0, 0]} name="Pengeluaran" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -107,7 +107,7 @@ export default function Dashboard() {
 
         {/* Expense Breakdown */}
         <div className="finance-card">
-          <h3 className="section-title mb-4">Expense by Category</h3>
+          <h3 className="section-title mb-4">Pengeluaran per Kategori</h3>
           <div className="h-64">
             {expenseBreakdown.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
@@ -121,7 +121,7 @@ export default function Dashboard() {
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-muted-foreground">No expense data</div>
+              <div className="h-full flex items-center justify-center text-muted-foreground">Belum ada data pengeluaran</div>
             )}
           </div>
         </div>
@@ -134,15 +134,15 @@ export default function Dashboard() {
           <div className="finance-card">
             <div className="flex items-center gap-2 mb-4">
               <Target className="w-5 h-5 text-primary" />
-              <h3 className="section-title">3-Month Forecast</h3>
+              <h3 className="section-title">Prediksi 3 Bulan</h3>
               <span className={`text-xs px-2 py-0.5 rounded-full ${forecast.confidence === 'high' ? 'bg-income-muted text-income' : forecast.confidence === 'medium' ? 'bg-transfer-muted text-transfer' : 'bg-expense-muted text-expense'}`}>
-                {forecast.confidence} confidence
+                {forecast.confidence === 'high' ? 'keyakinan tinggi' : forecast.confidence === 'medium' ? 'keyakinan sedang' : 'keyakinan rendah'}
               </span>
             </div>
             <div className="grid grid-cols-3 gap-4">
-              <div><p className="text-sm text-muted-foreground">Predicted Income</p><p className="text-lg font-semibold amount-income">{formatCurrency(forecast.predictedIncome)}</p></div>
-              <div><p className="text-sm text-muted-foreground">Predicted Expense</p><p className="text-lg font-semibold amount-expense">{formatCurrency(forecast.predictedExpense)}</p></div>
-              <div><p className="text-sm text-muted-foreground">Predicted Net</p><p className={`text-lg font-semibold ${forecast.predictedNet >= 0 ? 'amount-income' : 'amount-expense'}`}>{formatCurrency(forecast.predictedNet)}</p></div>
+              <div><p className="text-sm text-muted-foreground">Prediksi Pemasukan</p><p className="text-lg font-semibold amount-income">{formatCurrency(forecast.predictedIncome)}</p></div>
+              <div><p className="text-sm text-muted-foreground">Prediksi Pengeluaran</p><p className="text-lg font-semibold amount-expense">{formatCurrency(forecast.predictedExpense)}</p></div>
+              <div><p className="text-sm text-muted-foreground">Prediksi Bersih</p><p className={`text-lg font-semibold ${forecast.predictedNet >= 0 ? 'amount-income' : 'amount-expense'}`}>{formatCurrency(forecast.predictedNet)}</p></div>
             </div>
           </div>
         )}
@@ -152,17 +152,17 @@ export default function Dashboard() {
           <div className="finance-card">
             <div className="flex items-center gap-2 mb-4">
               <Clock className="w-5 h-5 text-primary" />
-              <h3 className="section-title">Financial Health</h3>
+              <h3 className="section-title">Kesehatan Keuangan</h3>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div><p className="text-sm text-muted-foreground">Monthly Burn Rate</p><p className="text-lg font-semibold">{formatCurrency(health.burnRate)}</p></div>
-              <div><p className="text-sm text-muted-foreground">Financial Runway</p><p className="text-lg font-semibold">{health.runwayMonths > 100 ? '100+' : health.runwayMonths} months</p></div>
+              <div><p className="text-sm text-muted-foreground">Burn Rate Bulanan</p><p className="text-lg font-semibold">{formatCurrency(health.burnRate)}</p></div>
+              <div><p className="text-sm text-muted-foreground">Runway Keuangan</p><p className="text-lg font-semibold">{health.runwayMonths > 100 ? '100+' : health.runwayMonths} bulan</p></div>
             </div>
             <div className="mt-4 pt-4 border-t border-border">
               <p className="text-sm">
-                Spending is <span className={health.spendingTrend === 'increasing' ? 'text-expense font-medium' : health.spendingTrend === 'decreasing' ? 'text-income font-medium' : 'text-muted-foreground'}>
-                  {health.spendingTrend}
-                </span> {health.trendPercentage > 0 && `by ${health.trendPercentage}%`} compared to last month.
+                Pengeluaran <span className={health.spendingTrend === 'increasing' ? 'text-expense font-medium' : health.spendingTrend === 'decreasing' ? 'text-income font-medium' : 'text-muted-foreground'}>
+                  {health.spendingTrend === 'increasing' ? 'meningkat' : health.spendingTrend === 'decreasing' ? 'menurun' : 'stabil'}
+                </span> {health.trendPercentage > 0 && `sebesar ${health.trendPercentage}%`} dibanding bulan lalu.
               </p>
             </div>
           </div>
